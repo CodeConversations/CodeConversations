@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+                font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+                background-color: #fff;
+            }
+    
+            html,
+            body {
+                height: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>This is where the content will go.</h1>
+
+        <div id="host"></div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.0-preview.2.20167.3/signalr.min.js" integrity="sha256-giCvl9WqY4cRekJLCx3jo3TjyghtCDdsCWJSjBl3WJw=" crossorigin="anonymous"></script>
+        <script>
+            const connection = new signalR.HubConnectionBuilder()
+                                                .withUrl("/hub")
+                                                .build();
+
+            connection.on('outputReceived', (output) => {
+                let div = document.createElement('div');
+                div.innerText = output;
+                document.getElementById('host').appendChild(div);
+            });
+
+            async function start() {
+                try {
+                    await connection.start();
+                    console.log("connected");
+                } catch (err) {
+                    console.log(err);
+                    setTimeout(() => start(), 5000);
+                }
+            };
+
+            start();
+        </script>
+    </body>
+</html>

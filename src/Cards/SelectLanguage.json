@@ -1,0 +1,52 @@
+{
+  "type": "AdaptiveCard",
+  "body": [
+    {
+      "type": "TextBlock",
+      "size": "Medium",
+      "weight": "Bolder",
+      "text": "Hello everyone"
+    },
+    {
+      "type": "Container",
+      "items": [
+        {
+          "type": "TextBlock",
+          "text": "Thank you for inviting me here, I can run code, what programming language would you like to use today?",
+          "wrap": true
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.Submit",
+      "title": "C#",
+      "data": {
+        "userAction": "SelectLanguage",
+        "language": "csharp",
+        "languageLabel": "C#"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "F#",
+      "data": {
+        "userAction": "SelectLanguage",
+        "language": "fsharp",
+        "languageLabel": "F#"
+      }
+    },
+    {
+      "type": "Action.Submit",
+      "title": "PowerShell",
+      "data": {
+        "userAction": "SelectLanguage",
+        "language": "powershell",
+        "languageLabel": "PowerShell"
+      }
+    }
+  ],
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "version": "1.2"
+}

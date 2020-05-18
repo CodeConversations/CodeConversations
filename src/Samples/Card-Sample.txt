@@ -1,0 +1,91 @@
+using System.Collections.Generic;
+
+public enum Suit : int
+{
+    None = 0,
+    Hearts = 1,
+    Clubs = 2,
+    Diamonds = 3,
+    Spades = 4
+}
+
+Console.WriteLine(".NET Interactive knows about a Suit");
+
+public enum Face : int
+{
+    LowJoker = -1,
+    HighJoker = 0,
+    Ace = 1,
+    Two = 2,
+    Three = 3,
+    Four = 4,
+    Five = 5,
+    Six = 6,
+    Seven = 7,
+    Eight = 8,
+    Nine = 9,
+    Ten = 10,
+    Jack = 11,
+    Queen = 12,
+    King = 13
+}
+
+Console.WriteLine(".NET Interactive knows about a Face.");
+
+public class Card
+{
+    public Suit Suit { get; set; }
+    public Face Face { get; set; }
+}
+
+Console.WriteLine(".NET Interactive knows about a Card.");
+
+public class Deck
+{
+    public Deck()
+    {
+        this.Cards = new List<Card>();       
+    }
+
+    public List<Card> Cards { get; private set; }
+}
+
+Deck BuildDeck(bool excludeJokers = false)
+{
+	var deck = new Deck();
+	for (int i = 1; i <= 4; i++)
+	{
+		for (int x = 1; x <= 13; x++)
+		{
+			deck.Cards.Add(new Card
+			{
+				Suit = (Suit)i,
+				Face = (Face)x
+			});
+		}
+	}
+
+	if (!excludeJokers)
+	{
+		deck.Cards.AddRange(new[] {
+				new Card { Face = Face.LowJoker, Suit = Suit.None },
+				new Card { Face = Face.HighJoker, Suit = Suit.None }
+			});
+	}
+	return deck;
+}
+
+Deck deck = BuildDeck();
+
+Console.WriteLine($"Deck created.");
+
+Formatter<Deck>.Register((deck, writer) =>
+{
+    PocketView v = div(deck.Cards.Select(c =>
+    {
+        var face = Enum.GetName(typeof(Face), c.Face);
+        var suit = Enum.GetName(typeof(Suit), c.Suit);
+        return img[src:$"https://dotnetcards.azureedge.net/cards/{suit}{face}.png", width:64]();
+    }));
+    writer.Write(v);
+}, "text/html");

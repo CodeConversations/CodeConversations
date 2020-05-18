@@ -1,0 +1,15 @@
+void Shuffle(Deck deck)
+{
+	var list = new LinkedList<Card>(deck.Cards);
+	deck.Cards.Clear();
+
+	var rnd = new Random();
+
+	while (list.Count > 0)
+	{
+		var id = rnd.Next(0, list.Count);
+		var card = list.ElementAt(id);
+		deck.Cards.Add(card);
+		list.Remove(card);
+	}
+}

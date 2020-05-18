@@ -1,0 +1,44 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.5/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.5",
+  "version": "1.0.0",
+  "id": "{BOT_MICROSOFT_APP_ID}",
+  "packageName": "com.microsoft.codeconversations",
+  "developer": {
+    "name": "Microsoft",
+    "websiteUrl": "https://{REPLACE-WITH-BOT-DOMAIN}",
+    "privacyUrl": "https://{REPLACE-WITH-BOT-DOMAIN}/privacy",
+    "termsOfUseUrl": "https://{REPLACE-WITH-BOT-DOMAIN}/termsofuse"
+  },
+  "validDomains": [
+    "{YOUR-NGROK}.ngrok.io",
+    "{REPLACE-WITH-BOT-DOMAIN}"
+  ],
+  "icons": {
+    "color": "bot.png",
+    "outline": "bot.png"
+  },
+  "name": {
+    "short": "{REPLACE_WITH_ENV_NAME}",
+    "full": "Code with your friends"
+  },
+  "description": {
+    "short": "{REPLACE_WITH_ENV_NAME}",
+    "full": "Conversational Code enables you with the ability to discuss and test source code right in Teams. Paste some code into a message into a Markdown code fence, then use the 'Execute Code' messaging extension to run the code using the power of .NET Interactive. Without ever leaving Teams."
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [
+    {
+      "botId": "{BOT_MICROSOFT_APP_ID}",
+      "scopes": [
+        "personal",
+        "team",
+        "groupchat"
+      ]
+    }
+  ],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ]
+}

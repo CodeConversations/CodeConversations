@@ -1,0 +1,42 @@
+﻿@page
+@model CodeConversations.Pages.ExecutorModel
+@{
+    ViewData["Title"] = "Code Conversations Execution Panel";
+}
+
+<input type="hidden" id="token" value="@Model.Token"/>
+
+
+<div id="host" style="overflow: auto"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/5.0.0-preview.2.20167.3/signalr.min.js" integrity="sha256-giCvl9WqY4cRekJLCx3jo3TjyghtCDdsCWJSjBl3WJw=" crossorigin="anonymous"></script>
+<script>
+    const connection = new signalR.HubConnectionBuilder().withUrl("/hub").build();
+
+    connection.on('outputReceived', (output) => {
+        let div = document.createElement('div');
+        document.getElementById('host').appendChild(div);
+
+        let domparser = new DOMParser();
+        let fragment = domparser.parseFromString(output, "text/html");
+        
+        for (let element of fragment.getElementsByTagName("BODY")[0].childNodes) {
+            div.appendChild(element);
+            if (element.tagName === "SCRIPT") {
+                eval(element.innerText);
+            };
+        }
+    });
+
+    async function start() {
+        try {
+            await connection.start();
+            console.log("connected");
+            connection.invoke('streamEventsForCommand', document.getElementById('token').getAttribute('value'));
+        } catch (err) {
+            console.log(err);
+            setTimeout(() => start(), 5000);
+        }
+    };
+
+    start();
+</script>
