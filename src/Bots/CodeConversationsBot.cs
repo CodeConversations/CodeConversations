@@ -150,7 +150,7 @@ namespace CodeConversations.Bots
                                          else
                                          {
                                              var content = string.Join("\n", formattedValues.Select(f => f.Value));
-                                             var message = MessageFactory.Text($"```\n{content.HtmlEncode()}");
+                                             var message = MessageFactory.Text($"```\n{content}");
                                              context.SendActivityAsync(message, token).Wait();
                                          }
                                      }
