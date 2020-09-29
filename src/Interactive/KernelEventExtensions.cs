@@ -7,7 +7,7 @@ namespace CodeConversations.Interactive
 {
     internal static class KernelEventExtensions
     {
-        public static FormattedValue GetHtmlOrPlainText(this DisplayEventBase displayEvent)
+        public static FormattedValue GetHtmlOrPlainText(this DisplayEvent displayEvent)
         {
             var formattedValue =
                 displayEvent.FormattedValues.SingleOrDefault(d => d.MimeType == HtmlFormatter.MimeType)
@@ -17,7 +17,7 @@ namespace CodeConversations.Interactive
             return formattedValue;
         }
 
-        public static FormattedValue GetHtml(this DisplayEventBase displayEvent)
+        public static FormattedValue GetHtml(this DisplayEvent displayEvent)
         {
             var formattedValue =
                 displayEvent.FormattedValues.SingleOrDefault(d => d.MimeType == HtmlFormatter.MimeType);
@@ -25,7 +25,7 @@ namespace CodeConversations.Interactive
             return formattedValue;
         }
 
-        public static FormattedValue GetPlainText(this DisplayEventBase displayEvent)
+        public static FormattedValue GetPlainText(this DisplayEvent displayEvent)
         {
             var formattedValue =
                 displayEvent.FormattedValues.SingleOrDefault(d => d.MimeType == PlainTextFormatter.MimeType);

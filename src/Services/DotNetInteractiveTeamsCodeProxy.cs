@@ -13,11 +13,11 @@ namespace CodeConversations.Services
         public event CodeReceivedEventHandler CodeReceived; 
 
 
-        internal ReplaySubject<IKernelEvent> ReceiveCode(string token,
+        internal ReplaySubject<KernelEvent> ReceiveCode(string token,
             string code, 
             string language = "csharp")
         {
-            var stream = new ReplaySubject<IKernelEvent>();
+            var stream = new ReplaySubject<KernelEvent>();
 
             CodeReceived?.Invoke(this, new CodeReceivedEventArgs
             {

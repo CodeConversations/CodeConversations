@@ -7,7 +7,7 @@ namespace CodeConversations.Services
     public class CodeReceivedEventArgs : EventArgs
     {
         public IKernelCommandEnvelope KernelCommandEnvelope { get; set; }
-        public IObserver<IKernelEvent> KernelEventStream { get; set; }
+        public IObserver<KernelEvent> KernelEventStream { get; set; }
         public string CommandToken { get; set; }
     }
 }
