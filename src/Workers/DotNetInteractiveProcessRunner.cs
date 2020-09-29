@@ -19,8 +19,8 @@ namespace CodeConversations.Workers
         internal static DotNetInteractiveProcessRunner Instance { get; private set; }
         private readonly ILogger<DotNetInteractiveProcessRunner> logger;
 
-        private ConcurrentDictionary<string, Action<IKernelEvent>> pendingRequests =
-            new ConcurrentDictionary<string, Action<IKernelEvent>>();
+        private ConcurrentDictionary<string, Action<KernelEvent>> pendingRequests =
+            new ConcurrentDictionary<string, Action<KernelEvent>>();
 
         public Process DotNetInteractiveProcess { get; private set; }
 
@@ -96,12 +96,12 @@ namespace CodeConversations.Workers
                 var channel = ContentSubjectHelper.GetOrCreateChannel(commandToken);
                 switch (kernelEvent)
                 {
-                    case DisplayEventBase displayEvent:
+                    case DisplayEvent displayEvent:
                         var content = displayEvent.GetHtmlOrPlainText();
                         logger.LogInformation(content.Value);
                         channel.OnNext(content);
                         break;
-                    case CommandHandled _:
+                    case CommandSucceeded _:
                         pendingRequests.TryRemove(commandToken, out _);
                         logger.LogInformation("Completed");
                         channel.OnCompleted();
